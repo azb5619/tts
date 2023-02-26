@@ -1,3 +1,4 @@
+import math, csv
 
 def find_nearest():
     with open('places.txt','r') as reader:
