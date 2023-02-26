@@ -1,20 +1,17 @@
 from flask import Flask, request, redirect
 from twilio.twiml.messaging_response import MessagingResponse
 from search_engine import toText
-<<<<<<< HEAD
 from gpt import generate_response
-=======
 from weather import getImage, find_nearest
->>>>>>> 625773d (implemented weather query)
 
 app = Flask(__name__)
 
 def search(body):
-    body = request.values.get('Body', None)
     results = toText(body)
-    get_results(body, results)
-    body = request.values.get('Body', None)
-    select_result(body, results)
+    b_split = body.split()
+    if len(b_split) > 1 and b_split[-1].isdigit():
+        return get_results(body, results)[int(b_split[-1])]
+    return get_results(body, results)
 
 def get_results(body, results):
     resp = MessagingResponse()
@@ -24,31 +21,28 @@ def get_results(body, results):
     resp.message(string)
     return str(resp)
 
-def select_result(body, results):
+def chatbot(body):
     resp = MessagingResponse()
-    return str(results[int(body)][1])
-
-def chatbot(body, results):
-    resp = MessagingResponse()
-    return generate_response(resp)
+    return str(resp)
 
 def weather(body):
     resp = MessagingResponse()
     city = find_nearest(body)
-    resp.message(body=city,
-                 media_url=getImage(city))
+    resp.message(city[0]).media(getImage(city))
     return str(resp)
 
 @app.route("/", methods=['GET', 'POST'])
-def query_reply():
-    body = request.values.get('Body', None)
-    match body[:2]:
-        case '!c':
-            chatbot(body[2:])
-        case '!w':
-            weather(body[2:])
-        case _:
-            search(body[2:])
+def query():
+    body = str(request.values.get('Body', None))
+    if '!c' in body:
+            return chatbot(body[3:])
+    elif '!w' in body:
+            return weather(body[3:])
+    elif '!s' in body:
+            return search(body[3:])
+    resp = MessagingResponse()
+    resp.message("Use '!c' for chatbot, '!w' for weather, and '!s' for search")
+    return str(resp)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)

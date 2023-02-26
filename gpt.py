@@ -14,7 +14,7 @@ def generate_response(prompt):
             )
     return response.choices[0].text.strip()
 
-def __main__:
+def main():
     text_string = input("question ")
     response = generate_response(text_string)
     print(response)
