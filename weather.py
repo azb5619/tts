@@ -71,9 +71,6 @@ def find_nearest_states(inputCity, inputState=None):
 def getImage(closestCity):
     return "https://radar.weather.gov/ridge/standard/"+closestCity[1][0].split(',')[0]+"_loop.gif"
 
-def main():
+if __name__ == "__main__":
     a, b = input("city ").split()
     os.system('firefox '+getImage(find_nearest_states(a,b)))
-
-
-main()

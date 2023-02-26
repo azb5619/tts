@@ -1,7 +1,11 @@
 from flask import Flask, request, redirect
 from twilio.twiml.messaging_response import MessagingResponse
 from search_engine import toText
+<<<<<<< HEAD
 from gpt import generate_response
+=======
+from weather import getImage, find_nearest
+>>>>>>> 625773d (implemented weather query)
 
 app = Flask(__name__)
 
@@ -27,19 +31,24 @@ def select_result(body, results):
 def chatbot(body, results):
     resp = MessagingResponse()
     return generate_response(resp)
-def weather():
-    pass
+
+def weather(body):
+    resp = MessagingResponse()
+    city = find_nearest(body)
+    resp.message(body=city,
+                 media_url=getImage(city))
+    return str(resp)
 
 @app.route("/", methods=['GET', 'POST'])
 def query_reply():
     body = request.values.get('Body', None)
-    match body:
+    match body[:2]:
         case '!c':
-            pass
+            chatbot(body[2:])
         case '!w':
-            pass
+            weather(body[2:])
         case _:
-            search(body)
+            search(body[2:])
 
 if __name__ == "__main__":
     app.run(debug=True)
