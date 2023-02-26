@@ -37,6 +37,13 @@ def find_nearest_states(inputCity, inputState=None):
 
     noaacities = [[i, [noaa[0:-1] for noaa in small if [i[3].lower().strip(), i[1]] in [[a[1].lower().strip(), a[2]] for a in small]]] for i in big] #if ([i[3].lower().strip(), i[1]] in [[a[1].lower().strip(), a[2]] for a in small])]
 
+    for i in big:
+        #small arry
+        if i in smallarry:
+            ret += i
+
+    
+
     print(noaacities)
 
     big = csv.reader(open('bigcitylist.csv'))

@@ -3,6 +3,13 @@
 from bs4 import BeautifulSoup
 import requests, re
 
+def getContent(url):
+    html = requests.get(url).text
+    s = BeautifulSoup(html, 'html.parser')
+    results = s.find_all('p')
+    print(i, sep = '\n')
+
+
 def getHTML(prompt):
     url = "+".join(prompt.split())
     return requests.get("https://www.mojeek.com/search?q="+url)
@@ -15,4 +22,4 @@ def toText(prompt):
 
 
 if __name__ == "__main__":
-    print(toText(input("search ?")))
+    print(toText('hello'))
