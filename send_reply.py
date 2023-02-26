@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect
 from twilio.twiml.messaging_response import MessagingResponse
 from search_engine import toText
+from gpt import generate_response
 
 app = Flask(__name__)
 
@@ -23,8 +24,9 @@ def select_result(body, results):
     resp = MessagingResponse()
     return str(results[int(body)][1])
 
-def chatbot():
-    pass
+def chatbot(body, results):
+    resp = MessagingResponse()
+    return generate_response(resp)
 def weather():
     pass
 

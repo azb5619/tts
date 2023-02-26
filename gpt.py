@@ -1,6 +1,5 @@
 import openai, os
 
-text_string = input("question ")
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 
@@ -15,5 +14,10 @@ def generate_response(prompt):
             )
     return response.choices[0].text.strip()
 
-response = generate_response(text_string)
-print(response)
+def __main__:
+    text_string = input("question ")
+    response = generate_response(text_string)
+    print(response)
+
+if __name__ == '__main__':
+    main()
