@@ -14,10 +14,5 @@ def toText(prompt):
     return [(i.contents,i.get("href")) for i in results]
 
 
-def main():
+if __name__ == "__main__":
     print(toText(input("search ?")))
-
-    
-
-
-main()

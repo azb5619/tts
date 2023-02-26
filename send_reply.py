@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect
 from twilio.twiml.messaging_response import MessagingResponse
+from search_engine import toText
 
 app = Flask(__name__)
 
@@ -10,12 +11,11 @@ def sms_reply():
     body = request.values.get('Body', None)
     resp = MessagingResponse()
 
-    if body == 'hi':
-        resp.message('yo')
-    elif body == 'bye':
-        resp.message('dueces')
-    else:
-        resp.message('sup')
+    response = toText(body)
+    string = ""
+    for i in range(len(response)):
+        string += f"{i}: {response[i][0]}\n"
+    resp.message(string)
 
     return str(resp)
 
