@@ -20,6 +20,5 @@ def toText(prompt):
     results = s.find_all("a", class_="title")
     return [(i.contents,i.get("href")) for i in results]
 
-
 if __name__ == "__main__":
-    print(toText('hello'))
+    print(toText(input("Search: ")))

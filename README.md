@@ -1,6 +1,6 @@
 # tts
 
-TTS, short for text to search is a comprehensive text messaging platform which allows you to use search the internet through sms.
+TTS, short for text to search, is a comprehensive text messaging platform which allows you to use search the internet through sms.
 
 ## installation
 ```
